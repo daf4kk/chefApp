@@ -8,6 +8,7 @@ import MenuPage from './pages/MenuPage';
 import { useLazyGetRecipeInfoQuery, useSearchRecipesQuery } from './store/spoonacularApi/recipes.api';
 import { useSearchMenuQuery } from './store/spoonacularApi/menu.api';
 import { useSearchProductsQuery } from './store/spoonacularApi/products.api';
+import FavouritesPage from './pages/FavouritesPage';
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
       <Route path = '/recipes' element = {<RecipesPage/>}></Route>
       <Route path = '/products' element = {<ProductsPage/>}></Route>
       <Route path = '/menu' element = {<MenuPage/>}></Route>
+      <Route path = '/favourites' element = {<FavouritesPage/>}></Route>
     </Routes>
   );
 };

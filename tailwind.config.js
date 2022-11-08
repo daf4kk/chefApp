@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'home': 'url(/src/imgs/background.png)',
+        'input': 'url(/src/imgs/search.png)'
+      }
+    },
   },
   plugins: [],
 }
