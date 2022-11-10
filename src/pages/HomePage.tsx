@@ -13,8 +13,9 @@ const HomePage = () => {
                 <p className='text-stone-500 text-lg mt-10 w-[500px]'>On our site you will find thousands of recipes, all information about specific products, menus of large fast food chains</p>
                 <div className='mt-10'>
                     <Link to = '/recipes' className='home-button text-2xl'>Recipes</Link>
-                    <Link to = '/products' className='home-button text-2xl'>Products</Link>
                     <Link to = '/menu' className='home-button text-2xl'>Fast food menu</Link>
+                    <Link to = '/products' className='home-button text-2xl'>Products</Link>
+                    
                 </div>
                 <Link to = '/favourites' className='home-button m-auto p-2 text-md bg-amber-500 mt-[30px] hover:bg-amber-600 hover:text-white'>Favourites</Link>
             </div>

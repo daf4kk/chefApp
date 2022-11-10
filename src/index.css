@@ -19,4 +19,21 @@
     .content-input{
        @apply w-[500px] h-[50px] rounded mt-5 border-none p-3 pr-10 outline-emerald-600 outline-2 text-xl text-neutral-700
     }
+    .column-item{
+        @apply rounded-xl w-auto h-auto bg-gray-100 cursor-pointer
+    }
+    .row-item{
+        @apply bg-gray-100 w-[100%] h-[60px] p-2 cursor-pointer flex items-center justify-between rounded-xl mt-2
+    }
+}
+
+.items{
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.items::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageContainer from '../components/PageContainer';
+import removeFav from '../imgs/unfav.png';
 const FavouritesPage = () => {
     return (
         <div>

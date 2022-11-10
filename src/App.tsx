@@ -5,9 +5,9 @@ import HomePage from './pages/HomePage';
 import RecipesPage from './pages/RecipesPage';
 import ProductsPage from './pages/ProductsPage';
 import MenuPage from './pages/MenuPage';
-import { useLazyGetRecipeInfoQuery, useSearchRecipesQuery } from './store/spoonacularApi/recipes.api';
-import { useSearchMenuQuery } from './store/spoonacularApi/menu.api';
-import { useSearchProductsQuery } from './store/spoonacularApi/products.api';
+// import { useLazyGetRecipeInfoQuery, useLazySearchRecipesQuery } from './store/spoonacularApi/recipes.api';
+// import { useSearchMenuQuery } from './store/spoonacularApi/menu.api';
+// import { useSearchProductsQuery } from './store/spoonacularApi/products.api';
 import FavouritesPage from './pages/FavouritesPage';
 
 const App = () => {

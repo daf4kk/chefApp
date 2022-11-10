@@ -9,7 +9,7 @@ const menuApi = spooncularApi.injectEndpoints({
             url: `food/menuItems/search`,
             params: {
                 query: search,
-                number: 5,  
+                number: 10,  
                 apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
             }
         }),
@@ -25,4 +25,4 @@ const menuApi = spooncularApi.injectEndpoints({
     }),
   })
   
-  export const {useSearchMenuQuery, useGetMenuInfoQuery} = menuApi
+  export const {useLazySearchMenuQuery, useGetMenuInfoQuery} = menuApi

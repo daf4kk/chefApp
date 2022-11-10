@@ -8,7 +8,7 @@ const productsApi = spooncularApi.injectEndpoints({
             url: 'food/products/search',
             params: {
                 query: search,
-                number: 5,  
+                number: 10,  
                 apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
             }
         }),
@@ -24,4 +24,4 @@ const productsApi = spooncularApi.injectEndpoints({
     }),
   })
   
-export const { useSearchProductsQuery, useLazyGetProductInfoQuery } = productsApi
+export const { useLazySearchProductsQuery, useLazyGetProductInfoQuery } = productsApi

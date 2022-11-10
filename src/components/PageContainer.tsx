@@ -17,8 +17,8 @@ const PageContainer:React.FC<Props> = ({children}) => {
                 <a href = 'https://github.com/daf4kk' target= '_blank' rel = 'noreferrer'><img className='w-[50px] h-[50px] ml-5' src = {logo} alt = 'logo'></img></a>
                 <nav className='list-none flex m-auto'>
                     <Link to = '/recipes' className='header-button header-button_active'>Recipes</Link>
-                    <Link to = '/products' className='header-button'>Products</Link>
                     <Link to = '/menu' className='header-button'>Fast food menu</Link>
+                    <Link to = '/products' className='header-button'>Products</Link>
                 </nav>
                 <button className='mr-5 rounded bg-amber-400 p-1 transition-colors duration-200 hover:text-white hover:bg-amber-500'>Favourites</button>
             </header>

@@ -11,6 +11,10 @@ export interface RecipesResponse {
     number: number;
     totalResults: number;
 }
+
+export interface RandomRecipesResponse{
+    recipes: IRecipe[]
+}
 // RecipeInfo
 interface Us {
     amount: number;
