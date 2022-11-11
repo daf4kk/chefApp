@@ -12,7 +12,7 @@ const PageContainer:React.FC<Props> = ({children}) => {
         })
     }, [])
     return (
-        <div className='overflow-hidden'>
+        <div className='overflow-auto overflow-x-hidden'>
             <header className='w-[100vw] h-[80px] flex items-center border bg-home'>
                 <a href = 'https://github.com/daf4kk' target= '_blank' rel = 'noreferrer'><img className='w-[50px] h-[50px] ml-5' src = {logo} alt = 'logo'></img></a>
                 <nav className='list-none flex m-auto'>
@@ -20,9 +20,9 @@ const PageContainer:React.FC<Props> = ({children}) => {
                     <Link to = '/menu' className='header-button'>Fast food menu</Link>
                     <Link to = '/products' className='header-button'>Products</Link>
                 </nav>
-                <button className='mr-5 rounded bg-amber-400 p-1 transition-colors duration-200 hover:text-white hover:bg-amber-500'>Favourites</button>
+                <Link to = '/favourites' className='mr-5 rounded bg-amber-400 p-1 transition-colors duration-200 hover:text-white hover:bg-amber-500'>Favourites</Link>
             </header>
-            <div className='content w-[100vw] h-[91.5vh] bg-emerald-200'>
+            <div className='content w-[100vw] h-[91.5vh] bg-emerald-200 overflow-auto'>
                 {children}
             </div>
         </div>

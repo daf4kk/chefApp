@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PageContainer from '../components/PageContainer';
-import RecipeItem from '../components/ColumnItem';
+import RecipeItem from '../components/RecipeItem';
 import { useGetRandomRecipesQuery,useLazySearchRecipesQuery } from '../store/spoonacularApi/recipes.api';
 import { useDebounce } from '../hooks/debounce';
 import spinner from '../imgs/spinner.svg';
@@ -37,7 +37,7 @@ const RecipesPage = () => {
         <PageContainer>
             <>
             <div className='w-[70vw] m-auto flex justify-center relative'>
-                    <input spellCheck = {false} placeholder = 'Enter recipe name' className='content-input bg-input bg-no-repeat bg-right'
+                    <input spellCheck = {false} placeholder = 'Enter recipe name' className='content-input bg-input bg-no-repeat bg-position'
                     onChange = {e => setQuery({...queryOptions, query: e.target.value})}
                     ></input>
             </div>

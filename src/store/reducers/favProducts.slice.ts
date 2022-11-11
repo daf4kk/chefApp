@@ -18,6 +18,9 @@ export const ProductsSlice = createSlice({
         },
         removeFavProduct(state, action: PayloadAction<IProduct>){
             state.favProducts = state.favProducts.filter(f => f.id !== action.payload.id)
+        },
+        clearProductsState(state){
+            state.favProducts = []
         }
     }
 })

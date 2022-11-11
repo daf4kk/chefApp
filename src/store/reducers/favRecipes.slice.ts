@@ -18,6 +18,9 @@ export const RecipeSlice = createSlice({
         },
         removeFavRecipe(state, action: PayloadAction<IRecipe>){
             state.favRecipes = state.favRecipes.filter(f => f.id !== action.payload.id)
+        },
+        clearRecipeState(state){
+            state.favRecipes = []
         }
     }
 })

@@ -18,6 +18,9 @@ export const MenuSlice = createSlice({
         },
         removeFavMenu(state, action: PayloadAction<IMenu>){
             state.favMenu = state.favMenu.filter(f => f.id !== action.payload.id)
+        },
+        clearMenuState(state){
+            state.favMenu = []
         }
     }
 })
