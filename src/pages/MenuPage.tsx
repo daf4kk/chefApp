@@ -28,7 +28,9 @@ const MenuPage = () => {
     const debounced = useDebounce(queryOptions.query)
 
     useEffect(() => {
-        fetchMenu(debounced)
+        if (debounced.length !== 9){
+            fetchMenu(debounced)
+        }
     }, [debounced])
     
     return (

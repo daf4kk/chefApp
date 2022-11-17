@@ -22,10 +22,10 @@ const FavouritesPage = () => {
                                 <h1 className='text-xl cursor-pointer p-2 bg-red-300 rounded'
                                 onClick={() => {
                                     clearRecipeState()
-                                }}>Clear favourite recipes</h1>
+                                }}>Clear recipes</h1>
                             </div>
                             <div className='items grid grid-cols-4 gap-5 mt-2'>
-                                {favRecipes.length === 0 && <h1>Recipes is empty</h1>}
+                                {favRecipes.length === 0 && <h1 className='empty'>Recipes is empty</h1>}
                                 {favRecipes.map((item) => {
                                     return (
                                         <RecipeItem item = {item} key = {item.id}/>
@@ -39,10 +39,10 @@ const FavouritesPage = () => {
                                 <h1 className='text-xl cursor-pointer p-2 bg-red-300 rounded'
                                 onClick={() => {
                                     clearMenuState()
-                                }}>Clear favourite menu</h1>
+                                }}>Clear menu</h1>
                             </div>
                             <div className='items grid grid-cols-4 gap-5 mt-2'>
-                                {favMenu.length === 0 && <h1>Menu is empty</h1>}
+                                {favMenu.length === 0 && <h1 className='empty'>Menu is empty</h1>}
                                 {favMenu.map((item) => {
                                     return (
                                         <MenuItem item = {item} key = {item.id}/>
@@ -56,10 +56,10 @@ const FavouritesPage = () => {
                                 <h1 className='text-xl cursor-pointer p-2 bg-red-300 rounded'
                                 onClick={() => {
                                     clearProductsState()
-                                }}>Clear favourite products</h1>
+                                }}>Clear products</h1>
                             </div>
                             <div className='flex flex-col mt-2'>
-                                {favProducts.length === 0 && <h1>Products is empty</h1>}
+                                {favProducts.length === 0 && <h1 className='empty'>Products is empty</h1>}
                                 {favProducts.map((item) => {
                                     return (
                                         <ProductItem item = {item} key = {item.id}/>

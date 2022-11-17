@@ -28,6 +28,25 @@
     .bg-position{
         background-position: bottom 10px right 10px;
     }
+    .empty{
+        @apply text-lg font-thin text-slate-600
+    }
+    .page-info-p{
+        @apply ml-1 
+    }
+    .p-true{
+        @apply text-green-700
+    }
+    .p-false{
+        @apply text-red-400
+    }
+    .page-info-ul{
+        @apply list-none justify-between bg-green-200 shadow-md rounded-2xl p-3;
+    }
+    .page-info-ul-li{
+        @apply flex text-xl text-slate-700 mt-1;
+    }
+
 }
 
 .items{

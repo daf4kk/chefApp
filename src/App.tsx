@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {Routes,Route} from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import RecipesPage from './pages/RecipesPage';
+import RecipeInfoPage from './pages/RecipeInfoPage';
 import ProductsPage from './pages/ProductsPage';
 import MenuPage from './pages/MenuPage';
 // import { useLazyGetRecipeInfoQuery, useLazySearchRecipesQuery } from './store/spoonacularApi/recipes.api';
@@ -22,6 +23,7 @@ const App = () => {
     <Routes>
       <Route path = '/' element = {<HomePage/>}></Route>
       <Route path = '/recipes' element = {<RecipesPage/>}></Route>
+      <Route path = '/recipes/:id' element = {<RecipeInfoPage/>}></Route>
       <Route path = '/products' element = {<ProductsPage/>}></Route>
       <Route path = '/menu' element = {<MenuPage/>}></Route>
       <Route path = '/favourites' element = {<FavouritesPage/>}></Route>

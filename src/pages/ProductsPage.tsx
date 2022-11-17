@@ -30,7 +30,9 @@ const ProductsPage = () => {
     const debounced = useDebounce(queryOptions.query)
 
     useEffect(() => {
-        fetchProducts(debounced)
+        if (debounced.length !== 0){
+            fetchProducts(debounced)
+        }
     }, [debounced])
     return (
             <PageContainer>
