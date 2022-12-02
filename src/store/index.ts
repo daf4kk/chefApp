@@ -1,4 +1,4 @@
-import { productReducer } from './reducers/favProducts.slice';
+import { ingredientReducer } from './reducers/favIngredients.slice';
 import { menuReducer } from './reducers/favMenu.slice';
 import {recipeReducer} from './reducers/favRecipes.slice'
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
@@ -24,7 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     favRecipes: recipeReducer,
     favMenu: menuReducer,
-    favProducts: productReducer,
+    favIngredients: ingredientReducer,
     [spooncularApi.reducerPath]: spooncularApi.reducer
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)

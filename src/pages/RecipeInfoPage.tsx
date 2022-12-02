@@ -1,26 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import { useLazyGetRecipeInfoQuery } from '../store/spoonacularApi/recipes.api';
-import { RecipeInfo } from '../types/RecipeModels';
+import { useLazyGetRecipeInfoQuery, useLazyGetRecipeInstructionQuery } from '../store/spoonacularApi/recipes.api';
+import { RecipeInfo, RecipeInstruction} from '../types/RecipeModels';
 import spinner from '../imgs/spinner.svg';
+import clock from '../imgs/clock.png';
+import serving from '../imgs/serving.png';
 import PageContainer from '../components/PageContainer';
 const RecipeInfoPage = () => {
     const [fetchRecipe, {data, isLoading, isError}] = useLazyGetRecipeInfoQuery();
+    const [fetchInstruction, {data:instructionData}] = useLazyGetRecipeInstructionQuery();
     const {id} = useParams();
     const [recipe, setRecipe] = useState<undefined | RecipeInfo>(undefined)
+    const [instruction, setInstruction] = useState<undefined | RecipeInstruction>(undefined)
     useEffect(() => {
-        if (id && !data){ // При mount делаем запрос к серверу и проверяем есть ли ответ от сервера (на ошибки, загрузку и тд)
-            fetchRecipe(id)
-        }else{  //Если уже получили ответ
+        if (id && !data && !instructionData){ // При mount делаем запрос к серверу и проверяем есть ли ответ от сервера (на ошибки, загрузку и тд)
+            fetchRecipe(id)  
+        }else if (data){  //Если уже получили ответ
             setRecipe(data);
+            fetchInstruction(data.id)
+            if (instructionData){
+                setInstruction(instructionData)
+            }
         }
-    }, [data])
+    }, [data, instructionData])
+
     if (isLoading){
         return <img src = {spinner} alt = 'Loading...' className='m-auto mt-[20%]'></img>
     }
+
     return (
         <PageContainer>
-            <div className='m-auto w-[1200px] flex flex-col justify-center items-center mt-4 mb-5'>
+            <div className='m-auto w-[1200px] flex flex-col justify-center items-center mt-4 mb-5' >
                 <h1 className='font-semibold text-3xl text-slate-600'>{recipe?.title}</h1>
                 <img src = {recipe?.image} alt = 'recipe-img' className = 'w-full h-[500px] rounded-xl mt-4'></img>
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-2'>Short information</h1>
@@ -45,22 +55,53 @@ const RecipeInfoPage = () => {
                     <ul className='page-info-ul very-*'>
                        <li className='page-info-ul-li'>Very healthy : {recipe?.glutenFree ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li>
                        <li className='page-info-ul-li'>Very popular : {recipe?.glutenFree ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li>
+                    </ul>
+                    <ul className='page-info-ul'>
+                        <li className='page-info-ul-li'><img src = {clock} alt = 'neededTime' className='mr-2'></img>{recipe?.readyInMinutes} minutes</li>
+                        <li className='page-info-ul-li'><img src = {serving} alt = 'servings' className='mr-2'></img>For {recipe?.servings} persons</li>        
                     </ul>                    
                 </div>
 
                 {/* https://spoonacular.com/cdn/ingredients_100x100/apple.jpg */}
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-4'>Ingredients</h1>
-                <div className='ingredients grid grid-rows-2 grid-flow-col gap-7 mt-5'>
-                       {recipe?.extendedIngredients.map((ingredient) => {
+                <div className='ingredients grid grid-rows-4 grid-flow-col gap-7 mt-5 au'>
+                       {recipe?.extendedIngredients.map((ingredient,id) => {
                             return (
                                 // СДЕЛАТЬ ПОТОМ LINK (ССЫЛКИ НА PRODUCT PAGE)
-                                <div className='flex items-center bg-green-200 p-2 rounded-xl shadow-md' key={ingredient.name}>
+                                <div className='flex items-center bg-green-200 p-2 rounded-xl shadow-md' key={`${ingredient.name}${id}`}>
                                     <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} alt = 'ingredient' className='w-[70px] h-[70px]'></img>
-                                    <h1 className='ml-2'>{ingredient.name}</h1>
-                                    <p className='ml-2'>x{ingredient.amount}</p>
+                                    <div className='ml-2'>
+                                        <h1 className='text-neutral-700'>{ingredient.name}</h1>
+                                        <p className='text-neutral-700'>x{Math.round((ingredient.amount) * 10)/10}</p>
+                                    </div>
                                 </div>
                             )
                        })}
+                </div>
+                <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-4'>Steps:</h1>
+                <div className='steps-wrapper'>
+                    {instruction?.steps?.map((step,id) => {
+                        return (
+                            <div className='mt-5 p-3 bg-green-200 shadow-md rounded-xl flex items-center' key = {`${step.step}`}>
+                                <div className='w-[70px]'>
+                                    <p className='p-2 bg-green-500 rounded-full w-[50px] h-[50px] text-center font-bold text-2xl text-slate-500'>{step.number}</p>
+                                </div>
+                                <div className='ml-2'>
+                                    <h1 className='text-slate-600 text-sm font-thin'>We will need:</h1>
+                                    <div className='flex items-center mt-1'>
+                                    {step.ingredients.map((ingredient,id) => {
+                                        return (
+                                            // В будущем Link  
+                                            <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} alt = 'img' className='w-[40px] h-[40px] cursor-pointer pl-2' key = {`${ingredient.image}${id+10}`}></img>
+                                        )
+                                    })}
+                                    </div>
+                                    <h1 className='text-slate-600 text-sm font-thin mt-1'>Prepare:</h1>
+                                    <p className='pl-2 text-md text-neutral-700'>{step.step}</p>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </PageContainer>

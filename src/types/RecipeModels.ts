@@ -91,4 +91,41 @@ export interface RecipeInfo {
     analyzedInstructions: any[];
     originalId?: any;
     spoonacularSourceUrl: string;
+
+}
+
+export interface Temperature {
+    number: number;
+    unit: string;
+}
+
+export interface Equipment {
+    id: number;
+    image: string;
+    name: string;
+    temperature: Temperature;
+}
+
+export interface Ingredient {
+    id: number;
+    image: string;
+    name: string;
+}
+
+export interface Length {
+    number: number;
+    unit: string;
+}
+
+export interface Step {
+    equipment: Equipment[];
+    ingredients: Ingredient[];
+    number: number;
+    step: string;
+    length: Length;
+}
+
+export interface RecipeInstruction {
+    name: string;
+    steps: Step[];
 }

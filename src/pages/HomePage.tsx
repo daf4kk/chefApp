@@ -5,7 +5,6 @@ import { IRecipe } from '../types/RecipeModels';
 import logo from '../imgs/logo.png';
 import { Link } from 'react-router-dom';
 const HomePage = () => {
-    const {favProducts} = UseAppSelector(state => state.favProducts)
     return (
         <div className='w-[100vm] h-[100vh] bg-home flex justify-center items-center'>
             <div className='w-[1000px] h-[500px]  flex flex-col items-center'>
@@ -14,7 +13,7 @@ const HomePage = () => {
                 <div className='mt-10'>
                     <Link to = '/recipes' className='home-button text-2xl'>Recipes</Link>
                     <Link to = '/menu' className='home-button text-2xl'>Fast food menu</Link>
-                    <Link to = '/products' className='home-button text-2xl'>Products</Link>
+                    <Link to = '/ingredients' className='home-button text-2xl'>Ingredients</Link>
                     
                 </div>
                 <Link to = '/favourites' className='home-button m-auto p-2 text-md bg-amber-500 mt-[30px] hover:bg-amber-600 hover:text-white'>Favourites</Link>

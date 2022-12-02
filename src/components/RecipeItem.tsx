@@ -25,7 +25,7 @@ const RecipeItem:React.FC<Props> = ({item}) => {
     return (
         <div className='column-item flex flex-col relative'>
             <Link to = {`/recipes/${item.id}`}>
-                <img src = {item.image} alt = 'recipe' className='p-2 rounded-xl w-[312px] h-[200px]'></img>
+                <img src = {item.image} alt = {item.title} className='p-2 rounded-xl w-[312px] h-[200px]'></img>
                 <h1 className='p-2 h-[100px] text-ellipsis'>{item.title}</h1>
             </Link>
             

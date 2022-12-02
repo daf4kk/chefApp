@@ -20,10 +20,10 @@
        @apply w-[500px] h-[50px] rounded mt-5 border-none p-3 pr-12 outline-emerald-600 outline-2 text-xl text-neutral-700
     }
     .column-item{
-        @apply rounded-xl w-auto h-auto bg-gray-100 cursor-pointer
+        @apply rounded-xl w-auto h-auto bg-gray-100 cursor-pointer duration-300 hover:bg-green-400
     }
     .row-item{
-        @apply bg-gray-100 w-[100%] h-[60px] p-2 cursor-pointer flex items-center justify-between rounded-xl mt-2
+        @apply bg-gray-100 w-[100%] h-[60px] p-2 cursor-pointer flex items-center justify-between rounded-xl mt-2 duration-300 hover:bg-green-400
     }
     .bg-position{
         background-position: bottom 10px right 10px;
@@ -41,10 +41,25 @@
         @apply text-red-400
     }
     .page-info-ul{
-        @apply list-none justify-between bg-green-200 shadow-md rounded-2xl p-3;
+        @apply list-none justify-between bg-green-200 shadow-md rounded-2xl p-3 items-center
     }
     .page-info-ul-li{
         @apply flex text-xl text-slate-700 mt-1;
+    }
+    .active-modal{
+        transform: scale(1);
+        
+        /* background-color: rgba(0,0,0, 0.3); */
+    }
+    .unactive-filter{
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    .menu-filter-input{
+        
+    }
+    .menu-filter-text{
+        
     }
 
 }
@@ -58,4 +73,11 @@
 .items::-webkit-scrollbar {
     width: 0;
     height: 0;
+}
+::-webkit-scrollbar-thumb {
+    background: #34d399;
+    border-radius: 5px;
+}
+::-webkit-scrollbar {
+    width: 12px;
 }

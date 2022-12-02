@@ -4,6 +4,7 @@ import { useLazySearchMenuQuery } from '../store/spoonacularApi/menu.api';
 import { useDebounce } from '../hooks/debounce';
 import spinner from '../imgs/spinner.svg';
 import MenuItem from '../components/MenuItem';
+import { MenuQuery } from '../types/CommonModels';
 const MenuPage = () => {
     useEffect(() => {
         const links = document.querySelectorAll('.header-button');
@@ -17,32 +18,27 @@ const MenuPage = () => {
     //Можно конечно ввести какие то начальные данные для запроса, но мне хотелось бы чтоб при обновлений пользователь каждый раз получал случайный продукт, а при статичном query
     //наш ответ будет один и тем же каждый раз
     const [fetchMenu, {data, isLoading}] = useLazySearchMenuQuery();
-    interface IQuery{
-        query: string,
-        params: object
-    }
-    const [queryOptions, setQuery] = useState<IQuery>({
+    const [queryOptions, setQuery] = useState<MenuQuery>({
         query: '',
-        params: {}
+        params: null
     })
-    const debounced = useDebounce(queryOptions.query)
-
+    const debounced:any = useDebounce(queryOptions)
     useEffect(() => {
-        if (debounced.length !== 9){
+        if (debounced.query.length !== 0){
             fetchMenu(debounced)
         }
     }, [debounced])
-    
+
     return (
-        <PageContainer>
-            <>
-            <div className='w-[70vw] m-auto flex justify-center relative'>
-                    <input spellCheck = {false} placeholder = 'Enter menu name' className='content-input bg-input bg-no-repeat bg-position'
+        <div>
+            <PageContainer>
+            <div>
+            <div className='w-[70vw] m-auto flex justify-center items-center relative mt-[20px]'>
+                    <input spellCheck = {false} placeholder = 'Enter menu name' className='content-input bg-input bg-no-repeat bg-position mt-0'
                     onChange = {e => setQuery({...queryOptions, query: e.target.value})}
-                    
                     ></input>
             </div>
-            <div className='items h-[80%] w-[1200px] m-auto mt-10 p-3 grid grid-cols-5 gap-5 '>
+            <div className={`items h-[80%] w-[1200px] m-auto mt-10 p-3 grid grid-cols-5 gap-5`}>
                 {!data && !queryOptions.query  ? <h1 className='text-2xl text-green-500'>Please, enter anything in input</h1> : ''}
                 {isLoading && <img src = {spinner} alt = 'Loading...' className='absolute left-[50%] top-[50%]'></img>}
                 {/* {isError && <h1 className='text-red-500 text-2xl'>Server error, please, write to support</h1>} */}
@@ -52,8 +48,10 @@ const MenuPage = () => {
                     )
                 })}
             </div>
-            </>
-        </PageContainer>
+            </div>
+            
+         </PageContainer>
+        </div>
     );
 };
 

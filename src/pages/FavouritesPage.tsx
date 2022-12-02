@@ -4,13 +4,13 @@ import removeFav from '../imgs/unfav.png';
 import { UseAppSelector } from '../hooks/useAppSelector';
 import RecipeItem from '../components/RecipeItem';
 import MenuItem from '../components/MenuItem';
-import ProductItem from '../components/ProductItem';
+import IngredientItem from '../components/IngredientItem';
 import { useActions } from '../hooks/actions';
 const FavouritesPage = () => {
     const {favMenu} = UseAppSelector(state => state.favMenu);
     const {favRecipes} = UseAppSelector(state => state.favRecipes)
-    const {favProducts} = UseAppSelector(state => state.favProducts)
-    const {clearMenuState, clearProductsState, clearRecipeState} = useActions()
+    const {favIngredients} = UseAppSelector(state => state.favIngredients)
+    const {clearMenuState, clearIngredientsState, clearRecipeState} = useActions()
     return (
         <div>
             <PageContainer>
@@ -52,17 +52,17 @@ const FavouritesPage = () => {
                         </div>
                         <div className='peoduct-content w-[100%] h-auto mt-4 mb-5'>
                         <div className='flex justify-between items-center'>
-                                <h1 className='text-2xl'>Products</h1>
+                                <h1 className='text-2xl'>Ingredients</h1>
                                 <h1 className='text-xl cursor-pointer p-2 bg-red-300 rounded'
                                 onClick={() => {
-                                    clearProductsState()
-                                }}>Clear products</h1>
+                                    clearIngredientsState()
+                                }}>Clear ingredients</h1>
                             </div>
                             <div className='flex flex-col mt-2'>
-                                {favProducts.length === 0 && <h1 className='empty'>Products is empty</h1>}
-                                {favProducts.map((item) => {
+                                {favIngredients.length === 0 && <h1 className='empty'>Ingredients is empty</h1>}
+                                {favIngredients.map((item) => {
                                     return (
-                                        <ProductItem item = {item} key = {item.id}/>
+                                        <IngredientItem item = {item} key = {item.id}/>
                                     )
                                 })}       
                             </div>

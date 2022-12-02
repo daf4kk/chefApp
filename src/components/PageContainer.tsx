@@ -18,7 +18,7 @@ const PageContainer:React.FC<Props> = ({children}) => {
                 <nav className='list-none flex m-auto'>
                     <Link to = '/recipes' className='header-button header-button_active'>Recipes</Link>
                     <Link to = '/menu' className='header-button'>Fast food menu</Link>
-                    <Link to = '/products' className='header-button'>Products</Link>
+                    <Link to = '/ingredients' className='header-button'>Ingredients</Link>
                 </nav>
                 <Link to = '/favourites' className='mr-5 rounded bg-amber-400 p-1 transition-colors duration-200 hover:text-white hover:bg-amber-500'>Favourites</Link>
             </header>

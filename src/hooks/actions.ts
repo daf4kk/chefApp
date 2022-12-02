@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux"
 // import { githubActions } from "../store/github/github.slice"; 
 import {recipeActions} from '../store/reducers/favRecipes.slice';
 import { menuActions } from './../store/reducers/favMenu.slice';
-import { productActions } from "../store/reducers/favProducts.slice";
+import { ingredientActions } from "../store/reducers/favIngredients.slice";
 
 
 const actions = {
     ...recipeActions,
     ...menuActions,
-    ...productActions
+    ...ingredientActions
 }
 
 export const useActions = () => {
