@@ -48,18 +48,17 @@
     }
     .active-modal{
         transform: scale(1);
-        
-        /* background-color: rgba(0,0,0, 0.3); */
+        background-color: rgba(0,0,0, 0.3);
+    }
+    .unactive-modal{
+        transform: scale(0);
     }
     .unactive-filter{
         transform: scale(0);
         opacity: 0.5;
     }
-    .menu-filter-input{
-        
-    }
-    .menu-filter-text{
-        
+    .modal-bg{
+        background-color: rgba(0,0,0, 0.4);
     }
 
 }

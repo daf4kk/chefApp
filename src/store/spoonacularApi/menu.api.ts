@@ -15,9 +15,9 @@ const menuApi = spooncularApi.injectEndpoints({
             }
         }),
       }),
-      getMenuInfo: build.query<MenuItem,string>({
-        query: (search:string) => ({
-            url: `food/menuItems/${search}`,
+      getMenuInfo: build.query<MenuItem,number>({
+        query: (id:number) => ({
+            url: `food/menuItems/${id}`,
             params:{
                 apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
             }
