@@ -1,14 +1,16 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect, Dispatch, SetStateAction} from 'react';
 import { IIngredient } from '../types/IngredientModels';
 import addFav from '../imgs/fav.png';
 import unFav from '../imgs/unFav.png';
 import {useActions} from '../hooks/actions';
 import { UseAppSelector } from '../hooks/useAppSelector';
+import {ModalProps} from '../types/CommonModels'
 
 interface Props{
-    item: IIngredient
+    item: IIngredient,
+    setShowModal: Dispatch<SetStateAction<null | ModalProps>>
 }
-const ProductItem:React.FC<Props> = ({item}) => {
+const ProductItem:React.FC<Props> = ({item,setShowModal}) => {
     const {addFavIngredient, removeFavIngredient} = useActions()
     const {favIngredients} = UseAppSelector(state => state.favIngredients)
     const [isFav, setIsFav] = useState(false)
@@ -23,8 +25,12 @@ const ProductItem:React.FC<Props> = ({item}) => {
 
     return (
         <div className='row-item h-auto'>
-            <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${item.image}`} alt = {item.name}></img>
-            <h1 className='font-semi text-2xl w-[690px] ml-2'>{item.name}</h1>
+            <div className = 'flex items-center' onClick = {() => {
+                setShowModal({id:item.id, imageUrl: `https://spoonacular.com/cdn/ingredients_100x100/${item.image}`})
+             }}>
+                <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${item.image}`} alt = {item.name}></img>
+                <h1 className='font-semi text-2xl w-[690px] ml-2'>{item.name}</h1>
+            </div>
             {isFav ? 
                 <button className='cursor-pointer w-[32px] h-[32px]'
                 onClick = {() => {

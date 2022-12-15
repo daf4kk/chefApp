@@ -1,14 +1,15 @@
 import React, {useState, useEffect, Dispatch, SetStateAction} from 'react';
 import addFav from '../imgs/fav.png';
 import unFav from '../imgs/unFav.png';
-import { IMenu, MenuModalProps } from '../types/MenuModels';
+import { IMenu} from '../types/MenuModels';
+import {ModalProps} from '../types/CommonModels'
 import {useActions} from '../hooks/actions';
 import { UseAppSelector } from '../hooks/useAppSelector';
 import { Link } from 'react-router-dom';
 
 interface Props{
     item: IMenu,
-    setShowModal?: Dispatch<SetStateAction<null | MenuModalProps>>
+    setShowModal: Dispatch<SetStateAction<null | ModalProps>>
 }
 const MenuItem:React.FC<Props> = ({item, setShowModal}) => {
     const {addFavMenu, removeFavMenu} = useActions()

@@ -6,6 +6,8 @@ import spinner from '../imgs/spinner.svg';
 import clock from '../imgs/clock.png';
 import serving from '../imgs/serving.png';
 import PageContainer from '../components/PageContainer';
+import { ModalProps } from '../types/CommonModels';
+import IngredientModal from '../components/IngredientModal';
 const RecipeInfoPage = () => {
     const [fetchRecipe, {data, isLoading, isError}] = useLazyGetRecipeInfoQuery();
     const [fetchInstruction, {data:instructionData}] = useLazyGetRecipeInstructionQuery();
@@ -23,11 +25,10 @@ const RecipeInfoPage = () => {
             }
         }
     }, [data, instructionData])
-
+    const [showModal,setShowModal] = useState<null | ModalProps>(null)
     if (isLoading){
         return <img src = {spinner} alt = 'Loading...' className='m-auto mt-[20%]'></img>
     }
-
     return (
         <PageContainer>
             <div className='m-auto w-[1200px] flex flex-col justify-center items-center mt-4 mb-5' >
@@ -65,14 +66,19 @@ const RecipeInfoPage = () => {
                 {/* https://spoonacular.com/cdn/ingredients_100x100/apple.jpg */}
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-4'>Ingredients</h1>
                 <div className='ingredients grid grid-rows-4 grid-flow-col gap-7 mt-5 au'>
-                       {recipe?.extendedIngredients.map((ingredient,id) => {
+                        <IngredientModal showModal={showModal} setShowModal = {setShowModal} />
+                        {recipe?.extendedIngredients.map((ingredient,id) => {
                             return (
                                 // СДЕЛАТЬ ПОТОМ LINK (ССЫЛКИ НА PRODUCT PAGE)
-                                <div className='flex items-center bg-green-200 p-2 rounded-xl shadow-md' key={`${ingredient.name}${id}`}>
-                                    <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} alt = 'ingredient' className='w-[70px] h-[70px]'></img>
+                                <div className='flex items-center cursor-pointer bg-green-200 p-2 rounded-xl shadow-md' key={`${ingredient.name}${id}`}
+                                onClick = {() => {
+                                    setShowModal({id: ingredient.id, imageUrl: `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`})
+                                }}> 
+                                    <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} alt = {ingredient.name} className='w-[70px] h-[70px]'></img>
                                     <div className='ml-2'>
                                         <h1 className='text-neutral-700'>{ingredient.name}</h1>
                                         <p className='text-neutral-700'>x{Math.round((ingredient.amount) * 10)/10}</p>
+                                        
                                     </div>
                                 </div>
                             )
@@ -80,7 +86,7 @@ const RecipeInfoPage = () => {
                 </div>
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-4'>Steps:</h1>
                 <div className='steps-wrapper'>
-                    {instruction?.steps?.map((step,id) => {
+                    {instruction?.steps?.map((step) => {
                         return (
                             <div className='mt-5 p-3 bg-green-200 shadow-md rounded-xl flex items-center' key = {`${step.step}`}>
                                 <div className='w-[70px]'>

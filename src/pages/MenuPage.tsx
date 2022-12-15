@@ -5,7 +5,7 @@ import { useDebounce } from '../hooks/debounce';
 import spinner from '../imgs/spinner.svg';
 import MenuItem from '../components/MenuItem';
 import { MenuQuery } from '../types/CommonModels';
-import { MenuModalProps } from '../types/MenuModels';
+import { ModalProps } from '../types/CommonModels';
 import MenuModal from '../components/MenuModal';
 const MenuPage = () => {
     useEffect(() => {
@@ -30,7 +30,7 @@ const MenuPage = () => {
             fetchMenu(debounced)
         }
     }, [debounced])
-    const [showModal,setShowModal] = useState<null | MenuModalProps>(null)
+    const [showModal,setShowModal] = useState<null | ModalProps>(null)
     return (
         <div>
             <PageContainer>
@@ -41,13 +41,13 @@ const MenuPage = () => {
                         ></input>
                         
                 </div>
-                
-                <div className={`items h-[80%] w-[1200px] m-auto mt-10 p-3 grid grid-cols-5 gap-5 `}>
+                <MenuModal showModal = {showModal} setShowModal = {setShowModal}/>
+                <div className={`items h-[80%] w-[1200px] m-auto mt-10 p-3 grid grid-cols-5 gap-5 ${showModal ? 'opacity-25' : 'opacity-100'}`}>
                     {!data && !queryOptions.query  ? <h1 className='text-2xl text-green-500'>Please, enter anything in input</h1> : ''}
                     {isLoading && <img src = {spinner} alt = 'Loading...' className='absolute left-[50%] top-[50%]'></img>}
                     {/* <MenuModal showModal = {showModal} setShowModal = {setShowModal}/> */}
                     {/* {isError && <h1 className='text-red-500 text-2xl'>Server error, please, write to support</h1>} */}
-                    <MenuModal showModal = {showModal} setShowModal = {setShowModal}/>
+                    
                     
                     {data?.menuItems.map((item) => {
                         return (

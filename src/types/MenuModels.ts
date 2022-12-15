@@ -59,11 +59,6 @@ export interface MenuItem {
     spoonacularScore?: any;
 }
 
-export interface MenuModalProps{
-    id: number,
-    imageUrl: string
-}
-
 
 
 

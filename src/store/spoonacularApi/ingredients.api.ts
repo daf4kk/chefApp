@@ -14,9 +14,9 @@ const ingredientsApi = spooncularApi.injectEndpoints({
             }
         }),
       }),
-      getIngredientInfo: build.query<IngredientInfo,string>({
-        query: (search:string) => ({
-            url: `food/products/${search}`,
+      getIngredientInfo: build.query<IngredientInfo,number>({
+        query: (id:number) => ({
+            url: `food/ingredients/${id}/information?amount=1`,
             params:{
                 apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
             }

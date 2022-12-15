@@ -7,10 +7,11 @@ interface Props{
     showFilter: boolean,
     setShowFilter: Dispatch<SetStateAction<boolean>>,
     queryOptions: RecipeQuery,
-    setQuery: Dispatch<SetStateAction<RecipeQuery>>
+    setQuery: Dispatch<SetStateAction<RecipeQuery>>,
+    setParamsList: Dispatch<SetStateAction<string[] | null>>
 }
 
-const Filter:React.FC<Props> = ({showFilter, setShowFilter, queryOptions, setQuery}) => {
+const Filter:React.FC<Props> = ({showFilter, setShowFilter, queryOptions, setQuery,setParamsList}) => {
     const defaultParams = {
         type: [],
         diet: [],
@@ -23,7 +24,8 @@ const Filter:React.FC<Props> = ({showFilter, setShowFilter, queryOptions, setQue
         inputs.forEach((input:any) => { 
             input.checked = false
         });
-        (document.getElementById('readyTime') as HTMLInputElement).value = ''
+        (document.getElementById('readyTime') as HTMLInputElement).value = '';
+        setParamsList(null)
         setQuery({
             ...queryOptions,
             params: {
@@ -43,7 +45,7 @@ const Filter:React.FC<Props> = ({showFilter, setShowFilter, queryOptions, setQue
                 if (input.parentElement.parentElement.id === 'diet'){
                     paramsCopy.diet = [...paramsCopy.diet, input.name]
                 }else{
-                    paramsCopy.type = [...paramsCopy.type, input.type]
+                    paramsCopy.type = [...paramsCopy.type, input.name]
                 }
             }
         })

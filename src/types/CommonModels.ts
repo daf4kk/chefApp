@@ -45,3 +45,7 @@ export interface IngredientParams{
 //     query: string,
 //     params: MenuParams | RecipeParams | ProductParams по какой то причине выдаёт ошибку
 // }
+export interface ModalProps{
+    id: number,
+    imageUrl: string
+}

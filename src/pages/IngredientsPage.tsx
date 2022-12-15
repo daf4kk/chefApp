@@ -7,6 +7,8 @@ import { useDebounce } from '../hooks/debounce';
 import IngredientItem from '../components/IngredientItem';
 import { IngredientQuery } from '../types/CommonModels';
 import IngredientsFilter from '../components/IngredientsFilter';
+import IngredientModal from '../components/IngredientModal';
+import {ModalProps} from '../types/CommonModels'
 const IngredientsPage = () => {
     useEffect(() => {
         const links = document.querySelectorAll('.header-button');
@@ -41,6 +43,7 @@ const IngredientsPage = () => {
             fetchIngredients(debounced)
         }
     }, [debounced])
+    const [showModal,setShowModal] = useState<null | ModalProps>(null)
     return (
             <PageContainer>
                 <div className='mb-2'>
@@ -53,12 +56,13 @@ const IngredientsPage = () => {
                     <IngredientsFilter showFilter = {showFilter} setShowFilter = {setShowFilter} queryOptions = {queryOptions} setQuery = {setQuery}/>
                 </div>
                 <div className='flex flex-col h-[80%] w-[800px] m-auto mt-10 p-3 relative'>
+                    <IngredientModal showModal={showModal} setShowModal = {setShowModal}/>
                     {!data && !queryOptions.query ? <h1 className='text-2xl text-green-500'>Please, enter anything in input</h1> : ''}
                     {isLoading && <img src = {spinner} alt = 'Loading...' className='m-auto'></img>}
                     {data?.results.length !== 0 ?
                     data?.results.map((ingredient) => {
                         return (
-                            <IngredientItem item = {ingredient} key = {ingredient.id}/>
+                            <IngredientItem item = {ingredient} key = {ingredient.id} setShowModal = {setShowModal}/>
                         )
                     })
                     :

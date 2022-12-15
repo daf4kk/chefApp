@@ -24,6 +24,7 @@ const recipesApi = spooncularApi.injectEndpoints({
           url: 'recipes/random',
           params: {
             number: 10,
+            tags: q,
             apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
           }
         })
@@ -58,4 +59,4 @@ const recipesApi = spooncularApi.injectEndpoints({
     
   })
   
-  export const { useLazySearchRecipesQuery, useLazyGetRecipeInfoQuery, useGetRandomRecipesQuery, useLazyGetRecipeInstructionQuery, useLazyGetRecipesByFilterQuery } = recipesApi
+  export const { useLazySearchRecipesQuery, useLazyGetRecipeInfoQuery, useLazyGetRandomRecipesQuery, useLazyGetRecipeInstructionQuery, useLazyGetRecipesByFilterQuery } = recipesApi
