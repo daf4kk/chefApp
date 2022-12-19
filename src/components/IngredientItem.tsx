@@ -29,7 +29,7 @@ const ProductItem:React.FC<Props> = ({item,setShowModal}) => {
                 setShowModal({id:item.id, imageUrl: `https://spoonacular.com/cdn/ingredients_100x100/${item.image}`})
              }}>
                 <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${item.image}`} alt = {item.name}></img>
-                <h1 className='font-semi text-2xl w-[690px] ml-2'>{item.name}</h1>
+                <h1 className='font-semi text-2xl  ml-2 '>{item.name}</h1>
             </div>
             {isFav ? 
                 <button className='cursor-pointer w-[32px] h-[32px]'

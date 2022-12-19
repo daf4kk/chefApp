@@ -1,8 +1,7 @@
 import { MenuQuery } from '../../types/CommonModels';
 import { MenuItem, MenuResponse } from './../../types/MenuModels';
-
 import { spooncularApi } from "./spooncular.api"
-
+import { KEY } from './spooncular.api';
 const menuApi = spooncularApi.injectEndpoints({
     endpoints: (build) => ({
       searchMenu: build.query<MenuResponse, MenuQuery>({
@@ -11,7 +10,7 @@ const menuApi = spooncularApi.injectEndpoints({
             params: {
                 query: search.query,
                 number: 10,  
-                apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+                apiKey: KEY
             }
         }),
       }),
@@ -19,7 +18,7 @@ const menuApi = spooncularApi.injectEndpoints({
         query: (id:number) => ({
             url: `food/menuItems/${id}`,
             params:{
-                apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+                apiKey: KEY
             }
         })
       })

@@ -1,7 +1,4 @@
 import React from 'react';
-import { useActions } from '../hooks/actions';
-import { UseAppSelector } from '../hooks/useAppSelector';
-import { IRecipe } from '../types/RecipeModels';
 import logo from '../imgs/logo.png';
 import { Link } from 'react-router-dom';
 const HomePage = () => {

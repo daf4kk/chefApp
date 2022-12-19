@@ -41,9 +41,21 @@ const IngredientsPage = () => {
     useEffect(() => {
         if (debounced.query.length !== 0){
             fetchIngredients(debounced)
+            //Сборка применённых фильтров
+            const paramsString:string = `${debounced.params.minProteinPercent && `Min protein percent = ${debounced.params.minProteinPercent}%`},${debounced.params.maxProteinPercent && `Max protein percent = ${debounced.params.minProteinPercent}%`},${debounced.params.minFatPercent && `Min fat percent = ${debounced.params.minProteinPercent}%`},${debounced.params.maxFatPercent && `Max fat percent = ${debounced.params.minProteinPercent}%`},${debounced.params.minCarbsPercent && `Min carbs percent = ${debounced.params.minProteinPercent}%`},${debounced.params.intolerances && `intolerances = ${debounced.params.minProteinPercent}%`},`;
+            const paramsToArray = paramsString.split(',');
+            let validatedParams:string[] = []
+            paramsToArray.map((param) => {
+                if (param !== 'null' && param !== undefined && param.length !== 0){
+                    validatedParams.push(param)
+                }
+            })
+            setParamsList(validatedParams)
         }
-    }, [debounced])
-    const [showModal,setShowModal] = useState<null | ModalProps>(null)
+    }, [debounced]);
+
+    const [showModal,setShowModal] = useState<null | ModalProps>(null);
+    const [paramsList, setParamsList] = useState<string[] | null>(null)
     return (
             <PageContainer>
                 <div className='mb-2'>
@@ -55,8 +67,21 @@ const IngredientsPage = () => {
                     onClick = {() => setShowFilter(!showFilter)}></img>
                     <IngredientsFilter showFilter = {showFilter} setShowFilter = {setShowFilter} queryOptions = {queryOptions} setQuery = {setQuery}/>
                 </div>
-                <div className='flex flex-col h-[80%] w-[800px] m-auto mt-10 p-3 relative'>
-                    <IngredientModal showModal={showModal} setShowModal = {setShowModal}/>
+                {paramsList && paramsList?.length > 0 ? 
+                    <ul className='flex mt-3 items-center ml-[300px] '>
+                        <h1 className='text-xl text-green-600'>Applied filters:</h1>
+                        {paramsList.map((param) => {
+                            if (param.length !== 0){
+                                return <h1 className='ml-2 p-2 bg-green-500 rounded-xl text-white'>{param}</h1>
+                            }
+                        })}
+                    </ul>
+                    :
+                    ''
+                }
+                <IngredientModal showModal={showModal} setShowModal = {setShowModal}/>
+                <div className='flex flex-col h-[80%] w-[90vw] m-auto mt-10 p-3 relative'>
+                    
                     {!data && !queryOptions.query ? <h1 className='text-2xl text-green-500'>Please, enter anything in input</h1> : ''}
                     {isLoading && <img src = {spinner} alt = 'Loading...' className='m-auto'></img>}
                     {data?.results.length !== 0 ?

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import PageContainer from '../components/PageContainer';
-import removeFav from '../imgs/unfav.png';
 import { UseAppSelector } from '../hooks/useAppSelector';
 import RecipeItem from '../components/RecipeItem';
 import MenuItem from '../components/MenuItem';
@@ -22,7 +21,7 @@ const FavouritesPage = () => {
     return (
         <div>
             <PageContainer>
-                <div className='items m-auto w-[1000px] h-[100%] flex items-center flex-col'> 
+                <div className='items m-auto w-[90vw] h-[100%] flex items-center flex-col'> 
                         <h1 className='mt-4 text-xl p-2 bg-amber-400 rounded'>Favorites</h1>
                         <div className='recipes-content w-[100%]  h-auto  mt-3'>
                             <div className='flex justify-between items-center'>
@@ -49,7 +48,7 @@ const FavouritesPage = () => {
                                     clearMenuState()
                                 }}>Clear menu</h1>
                             </div>
-                            <div className='items grid grid-cols-4 gap-5 mt-2'>
+                            <div className='items grid grid-cols-4 gap-5 mt-2 overflow-x-hidden'>
                                 <MenuModal showModal={showMenuModal} setShowModal = {setShowMenuModal}/>
                                 {favMenu.length === 0 && <h1 className='empty'>Menu is empty</h1>}
                                 {favMenu.map((item) => {

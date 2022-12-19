@@ -1,7 +1,7 @@
 import { IngredientResponse, IngredientInfo } from '../../types/IngredientModels';
 import { IngredientQuery } from '../../types/CommonModels';
 import { spooncularApi } from "./spooncular.api"
-
+import { KEY } from './spooncular.api';
 const ingredientsApi = spooncularApi.injectEndpoints({
     endpoints: (build) => ({
       searchIngredients: build.query<IngredientResponse, IngredientQuery>({
@@ -10,7 +10,7 @@ const ingredientsApi = spooncularApi.injectEndpoints({
             params: {
                 query: search.query,
                 number: 10,  
-                apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+                apiKey: KEY
             }
         }),
       }),
@@ -18,7 +18,7 @@ const ingredientsApi = spooncularApi.injectEndpoints({
         query: (id:number) => ({
             url: `food/ingredients/${id}/information?amount=1`,
             params:{
-                apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+                apiKey: KEY
             }
         })
       })

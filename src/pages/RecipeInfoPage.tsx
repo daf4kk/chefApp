@@ -8,8 +8,9 @@ import serving from '../imgs/serving.png';
 import PageContainer from '../components/PageContainer';
 import { ModalProps } from '../types/CommonModels';
 import IngredientModal from '../components/IngredientModal';
+import RecipePageIngredientRender from '../components/RecipePageIngredientRender';
 const RecipeInfoPage = () => {
-    const [fetchRecipe, {data, isLoading, isError}] = useLazyGetRecipeInfoQuery();
+    const [fetchRecipe, {data, isLoading}] = useLazyGetRecipeInfoQuery();
     const [fetchInstruction, {data:instructionData}] = useLazyGetRecipeInstructionQuery();
     const {id} = useParams();
     const [recipe, setRecipe] = useState<undefined | RecipeInfo>(undefined)
@@ -31,11 +32,11 @@ const RecipeInfoPage = () => {
     }
     return (
         <PageContainer>
-            <div className='m-auto w-[1200px] flex flex-col justify-center items-center mt-4 mb-5' >
+            <div className='m-auto w-[80vw] flex flex-col justify-center items-center mt-4 mb-5' >
                 <h1 className='font-semibold text-3xl text-slate-600'>{recipe?.title}</h1>
                 <img src = {recipe?.image} alt = 'recipe-img' className = 'w-full h-[500px] rounded-xl mt-4'></img>
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-2'>Short information</h1>
-                <div className='recipe-information w-[95%]  flex justify-between mt-5'>
+                <div className='recipe-information w-[95%] mt-5 lg:flex lg:justify-between md:grid md:grid-cols-2 md:gap-2 sm:grid sm:gap-2'>
                     {/* Диет может и не быть, так что вывести лучше одним образом */}
                     <ul className='page-info-ul diets'>
                        <li className='page-info-ul-li'>Gluten free : {recipe?.glutenFree ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li>
@@ -44,7 +45,7 @@ const RecipeInfoPage = () => {
                        <li className='page-info-ul-li'>Vegan : {recipe?.vegan ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li> 
                        <li className='page-info-ul-li'>Vegetarian : {recipe?.vegetarian ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li> 
                     </ul>
-                    <ul className='page-info-ul dish-type'>
+                    <ul className='page-info-ul dish-type '>
                         <li className='page-info-ul-li'>Dishes :</li>
                        {recipe?.dishTypes ? recipe?.dishTypes.map((dish) => {
                             return (
@@ -53,11 +54,11 @@ const RecipeInfoPage = () => {
                             
                        }) : <li className='page-info-ul-li'>Not specified</li>}
                     </ul>
-                    <ul className='page-info-ul very-*'>
+                    <ul className='page-info-ul very-* '>
                        <li className='page-info-ul-li'>Very healthy : {recipe?.glutenFree ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li>
                        <li className='page-info-ul-li'>Very popular : {recipe?.glutenFree ? <p className='page-info-p p-true'>true</p>: <p className='page-info-p p-false'>false</p>}</li>
                     </ul>
-                    <ul className='page-info-ul'>
+                    <ul className='page-info-ul xl:mt-0'>
                         <li className='page-info-ul-li'><img src = {clock} alt = 'neededTime' className='mr-2'></img>{recipe?.readyInMinutes} minutes</li>
                         <li className='page-info-ul-li'><img src = {serving} alt = 'servings' className='mr-2'></img>For {recipe?.servings} persons</li>        
                     </ul>                    
@@ -65,28 +66,18 @@ const RecipeInfoPage = () => {
 
                 {/* https://spoonacular.com/cdn/ingredients_100x100/apple.jpg */}
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-4'>Ingredients</h1>
-                <div className='ingredients grid grid-rows-4 grid-flow-col gap-7 mt-5 au'>
+                <div className='ingredients grid lg:grid-rows-4 md:grid-rows-6 sm:grid-rows-6  grid-flow-col gap-7 mt-5 au'>
                         <IngredientModal showModal={showModal} setShowModal = {setShowModal} />
                         {recipe?.extendedIngredients.map((ingredient,id) => {
                             return (
-                                // СДЕЛАТЬ ПОТОМ LINK (ССЫЛКИ НА PRODUCT PAGE)
-                                <div className='flex items-center cursor-pointer bg-green-200 p-2 rounded-xl shadow-md' key={`${ingredient.name}${id}`}
-                                onClick = {() => {
-                                    setShowModal({id: ingredient.id, imageUrl: `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`})
-                                }}> 
-                                    <img src = {`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} alt = {ingredient.name} className='w-[70px] h-[70px]'></img>
-                                    <div className='ml-2'>
-                                        <h1 className='text-neutral-700'>{ingredient.name}</h1>
-                                        <p className='text-neutral-700'>x{Math.round((ingredient.amount) * 10)/10}</p>
-                                        
-                                    </div>
-                                </div>
+                                
+                                <RecipePageIngredientRender ingredient = {ingredient} setShowModal = {setShowModal} key = {`${ingredient.name}${id}`}/>
                             )
                        })}
                 </div>
                 <h1 className='text-2xl font-semibold text-semibold text-slate-600 mt-4'>Steps:</h1>
                 <div className='steps-wrapper'>
-                    {instruction?.steps?.map((step) => {
+                    {instruction?.steps ? instruction?.steps?.map((step) => {
                         return (
                             <div className='mt-5 p-3 bg-green-200 shadow-md rounded-xl flex items-center' key = {`${step.step}`}>
                                 <div className='w-[70px]'>
@@ -107,7 +98,9 @@ const RecipeInfoPage = () => {
                                 </div>
                             </div>
                         )
-                    })}
+                    }): 
+                        <h1 className='text-lg text-red-400'>Cooking method not specified</h1>
+                    }
                 </div>
             </div>
         </PageContainer>

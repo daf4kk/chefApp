@@ -1,21 +1,17 @@
-import { RandomRecipesResponse, RecipeInstruction, Step } from './../../types/RecipeModels';
+import { RandomRecipesResponse, RecipeInstruction} from './../../types/RecipeModels';
 import { RecipesResponse, RecipeInfo } from '../../types/RecipeModels';
 import { spooncularApi } from "./spooncular.api"
 import { RecipeQuery } from '../../types/CommonModels';
-
+import { KEY } from './spooncular.api';
 const recipesApi = spooncularApi.injectEndpoints({
     endpoints: (build) => ({
       searchRecipes: build.query<RecipesResponse, RecipeQuery>({
         query: (search:RecipeQuery) => ({
             url: `recipes/complexSearch?${search.params.diet && `diet=${search.params.diet}`}&${search.params.type && `type=${search.params.type}&${search.params.maxReadyTime && `maxReadyTime=${search.params.maxReadyTime}`}`}`,
-            // url: 'recipes/complexSearch',
             params: {
                 query: search.query,
-                // diet: search.params.diet,
-                // type: search.params.type,
-                // maxReadyTime: search.params.maxReadyTime,
                 number: 10,  
-                apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+                apiKey: KEY
             }
         }),
       }),
@@ -25,7 +21,7 @@ const recipesApi = spooncularApi.injectEndpoints({
           params: {
             number: 10,
             tags: q,
-            apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+            apiKey: KEY
           }
         })
       }),
@@ -35,7 +31,7 @@ const recipesApi = spooncularApi.injectEndpoints({
           params: {
             query: query.query,
             number: 10,  
-            apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+            apiKey: KEY
         }
         })
       }),
@@ -43,14 +39,14 @@ const recipesApi = spooncularApi.injectEndpoints({
         query: (search:string) => ({
             url: `recipes/${search}/information`,
             params:{
-                apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+                apiKey: KEY
             }
         })
       }), getRecipeInstruction: build.query<RecipeInstruction,number>({
         query: (recipeId:number) => ({
           url: `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions`,
           params: {
-            apiKey: 'ad59bcba1ad145c4be308352c4ea8549'
+            apiKey: KEY
           }
         }),
         transformResponse: (response: RecipeInstruction[]) => response[0]

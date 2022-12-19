@@ -42,16 +42,13 @@ const MenuPage = () => {
                         
                 </div>
                 <MenuModal showModal = {showModal} setShowModal = {setShowModal}/>
-                <div className={`items h-[80%] w-[1200px] m-auto mt-10 p-3 grid grid-cols-5 gap-5 ${showModal ? 'opacity-25' : 'opacity-100'}`}>
+                <div className={`items h-[80%] w-[90vw] m-auto mt-10 p-3 grid grid-cols-5 gap-5  ${showModal ? 'opacity-25' : 'opacity-100'}`}>
                     {!data && !queryOptions.query  ? <h1 className='text-2xl text-green-500'>Please, enter anything in input</h1> : ''}
                     {isLoading && <img src = {spinner} alt = 'Loading...' className='absolute left-[50%] top-[50%]'></img>}
-                    {/* <MenuModal showModal = {showModal} setShowModal = {setShowModal}/> */}
-                    {/* {isError && <h1 className='text-red-500 text-2xl'>Server error, please, write to support</h1>} */}
-                    
-                    
-                    {data?.menuItems.map((item) => {
+                    {!isLoading && data && data.menuItems.length === 0 && debounced.query.length > 0}
+                    {data?.menuItems.map((item,id) => {
                         return (
-                            <MenuItem item = {item} key = {item.id} setShowModal = {setShowModal}/>
+                            <MenuItem item = {item} key = {`${item.id}${id}`} setShowModal = {setShowModal}/>
                         )
                     })}
                 </div>

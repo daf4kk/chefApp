@@ -41,10 +41,7 @@ export interface IngredientParams{
     intolerances: null | string | number
 }
 
-// export interface IQuery{
-//     query: string,
-//     params: MenuParams | RecipeParams | ProductParams по какой то причине выдаёт ошибку
-// }
+
 export interface ModalProps{
     id: number,
     imageUrl: string

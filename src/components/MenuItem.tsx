@@ -5,7 +5,6 @@ import { IMenu} from '../types/MenuModels';
 import {ModalProps} from '../types/CommonModels'
 import {useActions} from '../hooks/actions';
 import { UseAppSelector } from '../hooks/useAppSelector';
-import { Link } from 'react-router-dom';
 
 interface Props{
     item: IMenu,
@@ -34,7 +33,7 @@ const MenuItem:React.FC<Props> = ({item, setShowModal}) => {
                 </img>
             </div>
                 <h1 className='p-2 text-ellipsis text-lg'>{item.title}</h1>
-                <h1 className='p-2 text-ellipsis text-blue-300 font-bold w-[200px]'>{item.restaurantChain}</h1>
+                <h1 className='p-2 text-ellipsis text-blue-300 font-bold'>{item.restaurantChain}</h1>
             {isFav ? 
                 <button className='cursor-pointer absolute right-2 bottom-2'><img src = {unFav} alt = 'unFav'
                 onClick = {() => {

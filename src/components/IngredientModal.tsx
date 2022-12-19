@@ -1,5 +1,4 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import { MenuItem} from '../types/MenuModels';
 import {IngredientInfo} from '../types/IngredientModels';
 import {ModalProps} from '../types/CommonModels'
 import close from '../imgs/close.png';
@@ -18,7 +17,7 @@ const IngredientModal:React.FC<Props> = ({showModal, setShowModal}) => {
         }    
     });
 
-    const [fetchIngredient, {data, isLoading, isError}] = useLazyGetIngredientInfoQuery()
+    const [fetchIngredient, {data}] = useLazyGetIngredientInfoQuery()
     const [item, setItem] = useState<IngredientInfo | null>(null)
 
     useEffect(() => {
@@ -42,7 +41,7 @@ const IngredientModal:React.FC<Props> = ({showModal, setShowModal}) => {
                 setShowModal(null)
             }
         }}>
-            <div className='modal w-[900px] h-[90%] bg-slate-100 rounded-xl relative z-30'>
+            <div className='modal lg:w-[900px] md:w-[95vw] h-[90vh] sm:w-[95vw] bg-slate-100 rounded-xl relative z-30 overflow-hidden'>
                 <div className = 'absolute top-3 right-3 cursor-pointer' onClick = {() => {
                     setItem(null)
                     setShowModal(null)
@@ -55,8 +54,9 @@ const IngredientModal:React.FC<Props> = ({showModal, setShowModal}) => {
                     {item ? 
                     <div className='p-5'>
                             <h1 className='text-3xl text-slate-600 font-bold'>{item.name}</h1>
-                            <div className='info-columns flex mt-4 justify-between'>
-                                <div className='bg-green-200 shadow-lg w-[250px] h-[250px] p-3 rounded-xl mt-3 cursor-pointer'>
+                            <div className='info-columns lg:flex lg:justify-between md:grid md:grid-cols-3 sm:grid sm:grid-cols-3 gap-2 mt-4 '>
+
+                                <div className='bg-green-200 shadow-lg w-[25vw] h-[250px] p-3 rounded-xl mt-3 cursor-pointer'>
                                     <h1 className='text-lg text-slate-400'>Nutrients:</h1>
                                     <div className='overflow-auto h-[200px]'>
                                     {item?.nutrition.nutrients.map((nutrient) => {
@@ -66,7 +66,7 @@ const IngredientModal:React.FC<Props> = ({showModal, setShowModal}) => {
                                     })}
                                     </div>
                                 </div>
-                                <div className='bg-green-200 shadow-lg w-[230px] h-[250px] p-3 rounded-xl mt-3 cursor-pointer'>
+                                <div className='bg-green-200 shadow-lg w-[25vw]  h-[250px] p-3 rounded-xl mt-3 cursor-pointer'>
                                     <h1 className='text-lg text-slate-400'>Properties:</h1>
                                     <div className=' h-[200px]'>
                                     {item?.nutrition.properties.map((propertie) => {
@@ -76,7 +76,7 @@ const IngredientModal:React.FC<Props> = ({showModal, setShowModal}) => {
                                     })}
                                     </div>
                                 </div>
-                                <div className='bg-green-200 shadow-lg w-[250px] h-[250px] p-3 rounded-xl mt-3 cursor-pointer'>
+                                <div className='bg-green-200 shadow-lg w-[25vw]  p-3 rounded-xl mt-3 cursor-pointer'>
                                     <h1 className='text-lg text-slate-400'>Flavonoids:</h1>
                                     <div className=' overflow-auto h-[200px]'>
                                     {item?.nutrition.flavonoids.map((flavonoid) => {
@@ -92,7 +92,7 @@ const IngredientModal:React.FC<Props> = ({showModal, setShowModal}) => {
                                 <h1 className='page-info-ul-li text-lg'>Consistency: <span className='text-green-700 ml-1'> {item.consistency}</span></h1>
                                 <div className='side-info'>
                                     <h1 className='page-info-ul-li text-lg'>Category:</h1>
-                                    <ul className='ml-3 h-[150px] overflow-auto'>
+                                    <ul className='ml-3 lg:h-[150px] md:h-[100px] overflow-auto'>
                                         {item.categoryPath.length !== 0 ? 
                                         item.categoryPath.map((category) => {
                                             return <li key = {category} className='page-info-ul-li text-lg text-lime-500'>{category}</li>

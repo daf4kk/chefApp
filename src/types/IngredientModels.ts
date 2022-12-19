@@ -73,3 +73,38 @@ export interface IngredientInfo {
     nutrition: Nutrition;
     categoryPath: string[];
 }
+
+//////
+
+export interface Metric {
+    amount: number;
+    unitLong: string;
+    unitShort: string;
+}
+
+export interface Us {
+    amount: number;
+    unitLong: string;
+    unitShort: string;
+}
+
+export interface Measures {
+    metric: Metric;
+    us: Us;
+}
+
+export interface RecipePageIngredient {
+    aisle: string;
+    amount: number;
+    id: number;
+    image: string;
+    measures: Measures;
+    meta: any[];
+    name: string;
+    original: string;
+    originalName: string;
+    unit: string;
+}
+
+
+

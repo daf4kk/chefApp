@@ -18,7 +18,7 @@ const MenuModal:React.FC<Props> = ({showModal, setShowModal}) => {
         }    
     });
 
-    const [fetchMenu, {data, isLoading, isError}] = useLazyGetMenuInfoQuery();
+    const [fetchMenu, {data, isLoading, error}] = useLazyGetMenuInfoQuery();
     const [item, setItem] = useState<MenuItem | null>(null)
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const MenuModal:React.FC<Props> = ({showModal, setShowModal}) => {
                 setShowModal(null)
             }
         }}>
-            <div className='modal w-[900px] h-[90%] bg-slate-100 rounded-xl relative z-30'>
+            <div className='modal lg:w-[900px] md:w-[90vw] h-[90%] bg-slate-100 rounded-xl relative z-30'>
                 <div className = 'absolute top-3 right-3 cursor-pointer' onClick = {() => {
                     setItem(null)
                     setShowModal(null)
@@ -52,7 +52,7 @@ const MenuModal:React.FC<Props> = ({showModal, setShowModal}) => {
                 
                 <div className='content cursor-default'>
                     <img src = {showModal?.imageUrl} alt = {item?.title} className='w-[500px] h-[200px] m-auto mt-10 rounded'></img>
-                    {item ? 
+                    {item && !isLoading ? 
                     <div className='p-3'>
                         <h1 className='text-2xl text-slate-600'>{item?.title}</h1>
                         <h1 className='text-2xl text-slate-600'>Chain: <span className='text-blue-300'>{item?.restaurantChain}</span></h1>
@@ -62,7 +62,7 @@ const MenuModal:React.FC<Props> = ({showModal, setShowModal}) => {
                             <div className='overflow-auto h-[200px]'>
                             {item?.nutrition.nutrients.map((nutrient) => {
                                 return (
-                                    <p className='page-info-ul-li text-lg'>{nutrient.name} : {nutrient.amount}</p>
+                                    <p className='page-info-ul-li text-lg' key = {nutrient.name}>{nutrient.name} : {nutrient.amount}</p>
                                 )
                             })}
                             </div>
@@ -80,7 +80,7 @@ const MenuModal:React.FC<Props> = ({showModal, setShowModal}) => {
                     :
                     <img src = {spinner} alt = 'Loading...' className='m-auto'></img>
                     }
-
+                    {error as any && <h1 className='text-xl text-red-500'>Error loading card</h1>}
                 </div>
                 
                 

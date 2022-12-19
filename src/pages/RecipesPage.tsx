@@ -33,31 +33,42 @@ const RecipesPage = () => {
     const [paramsList, setParamsList] = useState<string[] | null>(null)
     
     const debounced:any= useDebounce(queryOptions)
+    //ЕЩЁ ЕСЛИ У НАС НИЧЕГО НЕТУ
     useEffect(() => {
-        if (debounced.query.length >= 3){
+        //Если пользователь ищет что то конкретное
+        if (debounced.query.length >= 3 && !foundedRecipes){
+            const paramsString:string = `${debounced.params.diet},${debounced.params.type},${debounced.params.maxReadyTime ? `ready time = ${debounced.params.maxReadyTime}minutes` : 'ready time = no matter'}`;
+            setParamsList(paramsString.split(','))
             fetchRecipes(debounced)
-        }else if(debounced.query.length < 3 && (debounced.params.diet.length > 0 || debounced.params.type.length > 0)){ //Рандомные рецепты с tags (указываем диету и тип если имеются)
+        }
+        //Если меньше 3 символов в query, но есть применённые фильтры
+        else if(debounced.query.length < 3 && (debounced.params.diet.length > 0 || debounced.params.type.length > 0)){ //Рандомные рецепты с tags (указываем диету и тип если имеются)
             const paramsString:string = `${debounced.params.diet},${debounced.params.type}`;
             setParamsList(paramsString.split(','))
             fetchRandomRecipes(paramsString)
-        }else if (debounced.query.length === 0){
+        }else if (!priorityList){
             fetchRandomRecipes('')  //Рандомные рецепты при mount
         }
+
     }, [debounced])
 
     useEffect(() => {
         if (randomRecipes && !foundedRecipes){
-            //Рандомные рецепты:
+            //Говорим "отображать" рандомные рецепты:
             setPriorityList(randomRecipes.recipes)
         }
         else if (foundedRecipes && debounced.query.length >= 3){
-            //Найденные рецепты:
+            //Говорим "отображать" найденные рецепты:
             setPriorityList(foundedRecipes.results)
         }
         else if (debounced.query.length < 3 && randomRecipes){
             setPriorityList(randomRecipes.recipes)
         }
     })
+
+    useEffect(() => {
+    },[fetchRandomError, fetchError])
+
     const [showFilter, setShowFilter] = useState(false)
     return (
         <PageContainer>
@@ -77,24 +88,32 @@ const RecipesPage = () => {
                     <h1 className='text-xl text-green-600'>Applied filters:</h1>
                     {paramsList.map((param) => {
                         if (param.length !== 0){
-                            return <h1 className='ml-2 p-2 bg-green-500 rounded-xl text-white'>{param}</h1>
+                            return <h1 className='ml-2 p-2 bg-green-500 rounded-xl text-white' key = {param}>{param}</h1>
                         }
                     })}
-                </ul>
+                    </ul>
                     }
             </div>
-            <div className='items h-[80%] w-[1200px] m-auto mt-10 p-3 grid grid-cols-4 gap-5 '>
+            <div className='items h-[80%] w-[90vw] m-auto mt-10 p-3 grid grid-cols-4 gap-5 '>
                 {RandomRecipesLoading === true || fetchRecipesLoading === true ? <img src = {spinner} alt = 'Loading' className='absolute top-[50%] left-[50%]'></img> : ''}
                 {priorityList?.length !== 0 ? 
-                priorityList?.map((item) => {     
+                priorityList?.map((item,id) => {     
                     return (
-                        <RecipeItem item = {item} key = {`${item.id}1`}/>
+                        <RecipeItem item = {item} key = {item.id}/>
                     )
                 })
                 :
                 <h1 className='text-2xl text-amber-500'>Nothing found</h1>
                 }
-                
+                {/* {randomRecipes?.recipes?.length !== 0 ? 
+                randomRecipes?.recipes.map((item,id) => {     
+                    return (
+                        <RecipeItem item = {item} key = {`${item.title}${id}`}/>
+                    )
+                })
+                :
+                <h1 className='text-2xl text-amber-500'>Nothing found</h1>
+                } */}
             </div>
             </>
         </PageContainer>
